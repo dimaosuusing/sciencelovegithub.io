@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ScienceLove</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0a0808;
+            color: #f0e8ec;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #141010; }
+        ::-webkit-scrollbar-thumb { background: #b04a6a; border-radius: 10px; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(200, 80, 130, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(10, 8, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo .clover {
+            font-size: 2.2rem;
+            color: #e06090;
+        }
+        .logo .text {
+            background: linear-gradient(135deg, #f0a0c0, #c05078);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo .text span {
+            font-weight: 300;
+            -webkit-text-fill-color: #a07080;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            font-size: 0.95rem;
+            color: #b090a0;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: #f0c0d0;
+        }
+        .nav-cta {
+            background: #3a1a28;
+            padding: 8px 22px;
+            border-radius: 30px;
+            color: #f0d0e0 !important;
+            border: 1px solid #804a60;
+            transition: 0.3s;
+        }
+        .nav-cta:hover {
+            background: #5a2a40;
+            box-shadow: 0 0 30px rgba(200, 60, 120, 0.2);
+            border-color: #c06090;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 0;
+            gap: 40px;
+            min-height: 60vh;
+        }
+        .hero-content {
+            flex: 1 1 460px;
+        }
+        .hero-content .badge {
+            display: inline-block;
+            background: rgba(30, 16, 24, 0.8);
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #e090b0;
+            border: 1px solid #4a2838;
+            margin-bottom: 16px;
+        }
+        .hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+        .hero-content h1 .highlight {
+            background: linear-gradient(145deg, #f0a0c0, #c05078);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-content p {
+            font-size: 1.15rem;
+            color: #d0b8c0;
+            max-width: 500px;
+            margin-bottom: 14px;
+        }
+        .hero-content .status-note {
+            background: rgba(26, 14, 20, 0.85);
+            padding: 14px 22px;
+            border-radius: 12px;
+            border-left: 3px solid #b04a6a;
+            margin-bottom: 28px;
+            color: #d0b8c0;
+        }
+        .hero-content .status-note strong {
+            color: #f0a0c0;
+        }
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .btn-download {
+            background: linear-gradient(135deg, #4a1a30, #6a2a48);
+            padding: 14px 42px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #f0d0e0;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: 1px solid #804a60;
+        }
+        .btn-download:hover {
+            background: #7a2a50;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(180, 40, 100, 0.3);
+            border-color: #c06090;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #4a2a38;
+            padding: 12px 32px;
+            border-radius: 60px;
+            font-weight: 500;
+            color: #c0a0b0;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-outline:hover {
+            border-color: #b06080;
+            color: #f0d0e0;
+            background: rgba(120, 40, 70, 0.1);
+        }
+
+        .hero-visual {
+            flex: 1 1 380px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .orb {
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle at 30% 30%, #5a1a38, #180c12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(200, 80, 130, 0.08);
+            box-shadow: 0 0 80px rgba(180, 40, 100, 0.05);
+        }
+        .orb-inner {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 60% 40%, #a04060, #1e0a14);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            color: rgba(220, 120, 160, 0.15);
+            border: 1px solid rgba(200, 80, 140, 0.04);
+        }
+
+        /* ===== HOW TO USE ===== */
+        .howto {
+            padding: 50px 0;
+            border-top: 1px solid rgba(200, 80, 130, 0.08);
+        }
+        .howto h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #f0dce0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .howto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .howto-step {
+            background: rgba(20, 12, 18, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(200, 80, 130, 0.1);
+            padding: 24px 20px;
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+        .howto-step:hover {
+            border-color: #b04a6a;
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(160, 40, 80, 0.15);
+        }
+        .howto-step .num {
+            font-size: 2.2rem;
+            color: #e06090;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .howto-step h3 {
+            color: #f8e8ec;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .howto-step p {
+            color: #d0b8c0;
+            font-size: 0.95rem;
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 50px 0;
+            border-top: 1px solid rgba(200, 80, 130, 0.08);
+        }
+        .features h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #f0dce0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 26px;
+        }
+        .feature-card {
+            background: rgba(20, 12, 18, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(200, 80, 130, 0.1);
+            padding: 28px 22px;
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+        .feature-card:hover {
+            border-color: #b04a6a;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(160, 40, 80, 0.2);
+        }
+        .feature-card .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #e06090;
+        }
+        .feature-card h3 {
+            color: #f8e8ec;
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+        }
+        .feature-card p {
+            color: #d0b8c0;
+            font-size: 0.95rem;
+        }
+        .feature-card .soon {
+            color: #9a7a88;
+            font-size: 0.75rem;
+            font-style: italic;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery {
+            padding: 50px 0;
+            border-top: 1px solid rgba(200, 80, 130, 0.08);
+        }
+        .gallery h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #f0dce0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+        }
+        .gallery-item {
+            background: rgba(14, 8, 12, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(200, 80, 130, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .gallery-item:hover {
+            border-color: #b04a6a;
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(160, 40, 80, 0.15);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #1a1014;
+        }
+        .gallery-item .placeholder {
+            padding: 40px 20px;
+            text-align: center;
+            color: #6a4a58;
+        }
+        .gallery-item .placeholder span {
+            font-size: 2.2rem;
+            display: block;
+        }
+        .gallery-item .caption {
+            padding: 14px 18px 18px;
+            color: #d0b8c0;
+            border-top: 1px solid rgba(200, 80, 130, 0.05);
+        }
+        .gallery-item .caption strong {
+            color: #f0dce0;
+        }
+        .gallery-item .caption .sub {
+            font-size: 0.8rem;
+            color: #8a6a78;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* ===== ЛАЙТБОКС ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: lightboxIn 0.3s ease;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 0 80px rgba(180, 40, 100, 0.15);
+            border: 1px solid rgba(200, 80, 130, 0.1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #f0e8ec;
+            font-size: 2.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+        .lightbox-close:hover {
+            color: #e06090;
+            transform: rotate(90deg);
+        }
+        @keyframes lightboxIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== DOWNLOAD ===== */
+        .download {
+            padding: 50px 0;
+            border-top: 1px solid rgba(200, 80, 130, 0.08);
+            text-align: center;
+        }
+        .download h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #f0dce0;
+            margin-bottom: 10px;
+        }
+        .download p {
+            color: #b090a0;
+            margin-bottom: 20px;
+        }
+        .download .btn-download {
+            font-size: 1.2rem;
+            padding: 16px 56px;
+        }
+        .download .file-info {
+            color: #7a5a68;
+            font-size: 0.75rem;
+            margin-top: 14px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            border-top: 1px solid rgba(200, 80, 130, 0.08);
+            padding: 28px 0;
+            text-align: center;
+            color: #7a5a68;
+            font-size: 0.82rem;
+        }
+        .footer a {
+            color: #a06078;
+            text-decoration: none;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.6rem; }
+            .navbar { flex-wrap: wrap; gap: 10px; }
+            .nav-links { gap: 16px; font-size: 0.85rem; flex-wrap: wrap; }
+            .orb { width: 180px; height: 180px; }
+            .orb-inner { width: 100px; height: 100px; font-size: 3rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 2rem; }
+            .hero-actions { flex-direction: column; align-items: stretch; }
+            .btn-download, .btn-outline { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ЛАЙТБОКС ===== -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation();">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <img id="lightbox-img" src="" alt="Preview" />
+        </div>
+    </div>
+
+    <!-- ===== NAVBAR ===== -->
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <span class="clover">🍀</span>
+                <span class="text">Science<span>Love</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#howto">Setup</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#download" class="nav-cta">Download</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="container hero" id="about">
+        <div class="hero-content">
+            <div class="badge">✦ External Tool v2.4</div>
+            <h1><span class="highlight">ScienceLove</span></h1>
+            <p>Lightweight external module for advanced workflow automation. Operates as a <strong>standalone overlay</strong> — does not inject, patch, or modify game memory.</p>
+            <div class="status-note">
+                <strong>⚠️ Status:</strong> Only <strong>Aim Assist</strong> is fully functional at the moment.<br>
+                Other features — Relax, Timewarp, Auto-bot — are <strong>in development</strong> and will be available in future updates.
+            </div>
+            <div class="hero-actions">
+                <a href="#download" class="btn-download">⬇ Download</a>
+                <a href="#howto" class="btn-outline">How to use</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="orb" id="orb">
+                <div class="orb-inner">🍀</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HOW TO USE ===== -->
+    <section class="howto" id="howto">
+        <div class="container">
+            <h2>How to use</h2>
+            <div class="howto-grid">
+                <div class="howto-step"><div class="num">1</div><h3>Extract the archive</h3><p>Download the .7z file and extract it to any folder.</p></div>
+                <div class="howto-step"><div class="num">2</div><h3>Run the executable</h3><p>Launch the tool directly from the extracted folder. No installation required.</p></div>
+                <div class="howto-step"><div class="num">3</div><h3>Start using</h3><p>The tool runs as a transparent overlay — it does not modify game files.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Core capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-card"><span class="icon">◈</span><h3>Overlay-based</h3><p>No game memory patches, no injection, no system-level interference.</p></div>
+                <div class="feature-card"><span class="icon">◉</span><h3>Scripting interface</h3><p>Full Lua/script support with instant feedback.</p><span class="soon">⏳ Coming soon</span></div>
+                <div class="feature-card"><span class="icon">⊞</span><h3>Low resource usage</h3><p>Efficient and lightweight — runs smoothly under heavy load.</p></div>
+                <div class="feature-card"><span class="icon">⚙</span><h3>Dynamic configuration</h3><p>Adjustable settings with live preview and profile saving.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2>Previews</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('1.png')">
+                    <img src="1.png" alt="General" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                    <div class="placeholder" style="display:none;"><span>🖼</span>1.png<br><small style="opacity:0.5;">(image not found)</small></div>
+                    <div class="caption"><strong>1. General</strong><span class="sub">Main interface &amp; settings overview</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('2.png')">
+                    <img src="2.png" alt="Aim Assist" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                    <div class="placeholder" style="display:none;"><span>🖼</span>2.png<br><small style="opacity:0.5;">(image not found)</small></div>
+                    <div class="caption"><strong>2. Aim Assist</strong><span class="sub">Full functional — magnetic cursor, FOV, strength</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('3.png')">
+                    <img src="3.png" alt="Aim Assist Legit" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                    <div class="placeholder" style="display:none;"><span>🖼</span>3.png<br><small style="opacity:0.5;">(image not found)</small></div>
+                    <div class="caption"><strong>3. Aim Assist Legit</strong><span class="sub">Humanized smoothing, randomized delay</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DOWNLOAD ===== -->
+    <section class="download" id="download">
+        <div class="container">
+            <h2>Download</h2>
+            <p>Get the latest version — .7z archive, no installation required.</p>
+            <a href="https://github.com/dimaosuusing/science.online/raw/aed95d83fd7c1593b8c2db9c2433d7be46bcca29/OsuAimAssist.7z" class="btn-download">⬇ Download .7z</a>
+            <p class="file-info">Version 2.4 — ~15 MB</p>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 ScienceLove — for research &amp; development purposes only.</p>
+            <p style="margin-top: 4px; font-size: 0.7rem; color: #5a3a48;">No game files are modified.</p>
+        </div>
+    </footer>
+
+    <!-- ===== GSAP ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        // ===== ЛАЙТБОКС =====
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Закрытие по ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // ===== GSAP АНИМАЦИИ =====
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Пульсация орба
+            gsap.to("#orb", {
+                scale: 1.06,
+                duration: 2.2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                boxShadow: "0 0 120px rgba(180, 40, 100, 0.1)"
+            });
+
+            // Герой
+            const tl = gsap.timeline({ defaults: { ease: "back.out(1.5)" } });
+            tl
+                .from(".hero-content .badge", { opacity: 0, y: -30, duration: 0.5 })
+                .from(".hero-content h1", { opacity: 0, y: 40, duration: 0.8 }, "-=0.3")
+                .from(".hero-content p", { opacity: 0, y: 25, duration: 0.6 }, "-=0.4")
+                .from(".hero-content .status-note", { opacity: 0, y: 25, duration: 0.6 }, "-=0.3")
+                .from(".hero-actions a", { opacity: 0, y: 20, stagger: 0.12, duration: 0.5 }, "-=0.3")
+                .from(".hero-visual .orb", { opacity: 0, scale: 0.5, duration: 0.8 }, "-=0.5");
+
+        });
+    </script>
+
+</body>
+</html>
